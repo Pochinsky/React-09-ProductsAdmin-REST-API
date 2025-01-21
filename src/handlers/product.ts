@@ -52,7 +52,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     if (!product)
       return res.status(404).json({ error: "Producto no encontrado" });
     await product.destroy();
-    res.json({ data: { message: "Producto eliminado" } });
+    res.json({ message: "Producto eliminado" });
   } catch (error) {
     console.error(error);
   }
