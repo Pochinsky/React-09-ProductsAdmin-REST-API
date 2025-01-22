@@ -39,7 +39,7 @@ router.put(
     .isNumeric()
     .withMessage("El valor no es válido")
     .notEmpty()
-    .withMessage("El nombre del producto es obligatorio")
+    .withMessage("El precio del producto es obligatorio")
     .custom((value) => value > 0)
     .withMessage("El valor no es válido"),
   body("availability")
