@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { SwaggerUiOptions } from "swagger-ui-express";
 
 const options: swaggerJSDoc.Options = {
   swaggerDefinition: {
@@ -17,4 +18,20 @@ const options: swaggerJSDoc.Options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
+const url =
+  "https://miro.medium.com/v2/resize:fit:1400/1*f7ztMaMM0etsFHpEfkdiwA.png";
+const swaggerUiOptions: SwaggerUiOptions = {
+  customCss: `
+    .topbar-wrapper .link {
+      content: url('${url}');
+    }
+    .swagger-ui .topbar {
+      background-color: white;
+      box-shadow: 0px -4px 8px black;
+    }
+  `,
+  customSiteTitle: "Documentación ProductsAdmin REST API",
+};
+
 export default swaggerSpec;
+export { swaggerUiOptions };
