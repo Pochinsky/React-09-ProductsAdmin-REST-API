@@ -8,7 +8,7 @@ describe("connectDB", () => {
     jest
       .spyOn(db, "authenticate")
       .mockRejectedValueOnce(new Error("Server failed to connect to DB"));
-    const consoleSpy = jest.spyOn(console, "error");
+    const consoleSpy = jest.spyOn(console, "log");
     await connectDB();
     expect(consoleSpy).toHaveBeenCalledWith(
       expect.stringContaining("Server failed to connect to DB")

@@ -14,8 +14,8 @@ export async function connectDB() {
     db.sync();
     // console.log(colors.green("Server connected to DB"));
   } catch (error) {
-    console.log(error);
-    console.error(colors.red("Server failed to connect to DB"));
+    // console.log(error);
+    console.log(colors.red("Server failed to connect to DB"));
   }
 }
 connectDB();

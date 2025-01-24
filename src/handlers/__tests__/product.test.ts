@@ -83,7 +83,7 @@ describe("PUT /api/productd/:id", () => {
     expect(response.body.errors).toHaveLength(1);
     expect(response.body.errors[0].msg).toBe("El id no es válido");
   });
-  test("Should display validation error mmessages when updating a product", async () => {
+  test("Should display validation error messages when updating a product", async () => {
     const response = await request(server).put("/api/products/1").send({});
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("errors");
@@ -130,6 +130,25 @@ describe("PUT /api/productd/:id", () => {
     expect(response.body).toHaveProperty("data");
     expect(response.status).not.toBe(400);
     expect(response.body).not.toHaveProperty("errors");
+  });
+});
+
+describe("PATCH /api/products/:id", () => {
+  test("Should return a 404 response for a non-existing product", async () => {
+    const productId = 2000;
+    const response = await request(server).patch(`/api/products/${productId}`);
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBe("Producto no encontrado");
+    expect(response.status).not.toBe(200);
+    expect(response.body).not.toHaveProperty("data");
+  });
+  test("Should update the product availability", async () => {
+    const response = await request(server).patch("/api/products/1");
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("data");
+    expect(response.body.data.availability).toBe(false);
+    expect(response.status).not.toBe(400);
+    expect(response.body).not.toHaveProperty("error");
   });
 });
 
