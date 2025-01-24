@@ -1,9 +1,13 @@
 import express from "express";
 import colors from "colors";
+import cors, { CorsOptions } from "cors";
+import dotenv from "dotenv";
 import swaggerUI from "swagger-ui-express";
 import swaggerSpec, { swaggerUiOptions } from "./config/swagger";
 import router from "./router";
 import db from "./config/db";
+
+dotenv.config();
 
 // Connect to db
 export async function connectDB() {
@@ -18,10 +22,28 @@ export async function connectDB() {
 }
 connectDB();
 
-// Server setup
+// Express instance
 const server = express();
+
+// Allow connections
+const corsOptions: CorsOptions = {
+  origin: function (origin, callback) {
+    if (origin === process.env.FRONTEND_URL) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS Error"));
+    }
+  },
+};
+server.use(cors(corsOptions));
+
+// Read data from forms
 server.use(express.json());
+
+// Routes
 server.use("/api/products", router);
+
+// REST API Docs endpoints
 server.use(
   "/docs",
   swaggerUI.serve,
