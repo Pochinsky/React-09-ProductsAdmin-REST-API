@@ -6,6 +6,7 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
+  updateAvailability,
 } from "./handlers/product";
 import { handleInputErrors } from "./middlewares";
 
@@ -194,6 +195,8 @@ router.put(
   handleInputErrors,
   updateProduct
 );
+
+router.patch("/:id", updateAvailability);
 
 /**
  * @swagger
