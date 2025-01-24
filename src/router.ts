@@ -196,7 +196,38 @@ router.put(
   updateProduct
 );
 
-router.patch("/:id", updateAvailability);
+/**
+ * @swagger
+ * /api/products/:id:
+ *  patch:
+ *    summary: Updates product availability by id
+ *    description: Returns the updated product
+ *    tags:
+ *      - Products
+ *    parameters:
+ *    - in: path
+ *      name: id
+ *      description: The id of the product to update its availability
+ *      required: true
+ *      schema:
+ *        type: integer
+ *    responses:
+ *      200:
+ *        description: Product availability updated successfully
+ *        content:
+ *          application/json:
+ *            $ref: '#/componentes/schemas/Product'
+ *      400:
+ *        description: Bad request - Invalid id
+ *      404:
+ *        description: Product not found
+ */
+router.patch(
+  "/:id",
+  param("id").isInt().withMessage("El id no es válido"),
+  handleInputErrors,
+  updateAvailability
+);
 
 /**
  * @swagger
@@ -207,12 +238,12 @@ router.patch("/:id", updateAvailability);
  *    tags:
  *      - Products
  *    parameters:
- *      - in: path
- *        name: id
- *        description: The id of the product to update
- *        required: true
- *        schema:
- *          type: integer
+ *    - in: path
+ *      name: id
+ *      description: The id of the product to update
+ *      required: true
+ *      schema:
+ *        type: integer
  *  responses:
  *    200:
  *      description: Product deleted succesfully
