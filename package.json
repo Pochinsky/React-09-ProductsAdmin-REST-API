@@ -10,7 +10,7 @@
     "pretest": "ts-node ./src/data --clear",
     "test": "jest --detectOpenHandles",
     "test:coverage": "npm run pretest && jest --detectOpenHandles --coverage",
-    "build": "npx tsc"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
